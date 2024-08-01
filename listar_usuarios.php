@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar dados JSON</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         table {
             border-collapse: collapse;
@@ -12,7 +13,8 @@
             max-width: 600px;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #ccc;
             padding: 10px;
         }
@@ -45,16 +47,23 @@
         </thead>
         <tbody>
             <?php
-            echo $dados[0]['nome'];
             foreach ($dados as $id => $dado) {
 
 
             ?>
                 <tr>
-                    <td><?=$id?></td>
-                    <td><?=$dado['nome']?></td>
-                    <td><?=$dado['email']?></td>
-                    <td></td>
+                    <td><?= $id ?></td>
+                    <td><?= $dado['nome'] ?></td>
+                    <td><?= $dado['email'] ?></td>
+                    <td>
+                        <a href="editar.php?id=<?= $id ?>">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        |
+                        <a href="apagar.php?id=<?= $id ?>">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
                 </tr>
             <?php
             }
