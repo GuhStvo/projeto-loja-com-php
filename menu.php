@@ -12,7 +12,7 @@
         <li><a href="carrinho.php"><i class="icofont-duotone icofont-cart"></i> Carrinho</a></li>
         <?php
         // Verifica se existe uma sessão, se não existir ele inicia uma sessão
-        session_start();
+        @session_start();
         // isset verifica de existe essa variável
         if (isset($_SESSION['email'])) {
             echo '<li id="login"><a href="minha_conta.php"><i class="fa fa-user"></i> Minha conta</a></li>

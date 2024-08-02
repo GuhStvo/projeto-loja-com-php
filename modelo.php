@@ -19,31 +19,17 @@
 
 <body>
     <header>
-        <?php
-        include_once "menu.php"
+    <?php 
+            include_once "menu.php"
         ?>
     </header>
     <main>
         <div class="conteudo_central">
-            <section class="formulario_geral">
-                <form method="post" action="logar.php" id="form_login">
-                    <h1>Entrar na LojaTech</h1>
-                    <input type="hidden" name="status" value="1" id="status" class="form_input" placeholder="Email">
-                    <div class="form_grupo">
-                        <input type="email" name="email" id="email" class="form_input" placeholder="Email">
-                    </div>
-                    <div class="form_grupo">
-                        <input type="password" name="senha" id="senha" class="form_input" placeholder="Senha">
-                    </div>
-                    <div class="form_grupo">
-                        <button type="submit" class="form_btn">Entrar</button>
-                    </div>
-                </form>
-            </section>
+
         </div>
     </main>
     <?php
-    include_once "footer.php";
+        include_once "footer.php";
     ?>
     <script src="js/menu.js"></script>
 </body>
