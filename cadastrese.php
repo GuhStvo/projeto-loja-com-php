@@ -31,7 +31,7 @@
     <main>
         <div class="conteudo_central">
             <section class="formulario_geral">
-                <form method="post" action="processar_cadastro.php" id="form_cadastro">
+                <form method="post" id="form_cadastro">
                     <h1>Cadastre-se</h1>
                     <div class="form_grupo">
                         <label for="nome">Nome</label>
@@ -60,6 +60,7 @@
         include_once "footer.php";
     ?>
     <script src="js/menu.js"></script>
+    <script src="./cadastro.js"></script>
 </body>
 
 </html>

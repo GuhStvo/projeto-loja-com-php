@@ -107,3 +107,51 @@ header {
         font-size: .8rem;
     }
 }
+
+/*============== DIALOG ================*/
+dialog {
+    margin:15% auto;
+    font-size: 1.3rem;
+    border: 1px solid rgb(212, 175, 55);
+    background:rgba(255, 255, 255, .5);
+    text-align: center;
+    width: 250px;
+    padding: 2%;
+    z-index: 55;
+    backdrop-filter: blur(5px);
+    color: var(--azul);
+    animation: fadeScale 1s;
+}
+dialog div {
+    margin:2% auto;
+    padding-top: 5%;
+    text-align: center;
+    height: 70px;
+    font-size: 1.3rem;
+}
+@keyframes fadeScale {
+    from {
+        opacity: 0;
+        transform: scale(0);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+dialog button {
+    width: 100%;
+    height: 2.5rem;
+    cursor: pointer;
+    border: thin outset rgba(255, 255, 255, 0.5);
+    border-radius: var(--arredondar);
+    background: var(--azul);
+    box-shadow: 3px 2px 4px 0px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    font-size: 1.2rem;
+    color: rgb(255, 255, 255);
+    font-family: "Oswald", sans-serif;
+}
+/*========== FIM DIALOG ==========*/
