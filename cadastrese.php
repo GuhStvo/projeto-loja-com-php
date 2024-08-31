@@ -23,9 +23,10 @@
 </head>
 
 <body>
+    <dialog id="avisos"></dialog>
     <header>
     <?php 
-            include_once "menu.php"
+            include_once "menu.php";
         ?>
     </header>
     <main>
@@ -35,22 +36,22 @@
                     <h1>Cadastre-se</h1>
                     <div class="form_grupo">
                         <label for="nome">Nome</label>
-                        <input type="text" name="nome" id="nome" class="form_input">
+                        <input type="text" name="nome" id="nome" class="form_input" placeholder="Insira seu nome">
                     </div>
                     <div class="form_grupo">
                         <label for="cpf">CPF</label>
-                        <input type="text" name="cpf" id="cpf" class="form_input">
+                        <input type="text" name="cpf" id="cpf" class="form_input" maxlength="14" placeholder="000.000.000-00">
                     </div>
                     <div class="form_grupo">
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="email" class="form_input">
+                        <input type="email" name="email" id="email" class="form_input" placeholder="Exemplo: seunome@gmail.com">
                     </div>
                     <div class="form_grupo">
                         <label for="senha">Senha</label>
-                        <input type="password" name="senha" id="senha" class="form_input">
+                        <input type="password" name="senha" id="senha" class="form_input" placeholder="Senha com o mínimo de 8 carácteres">
                     </div>
                     <div class="form_grupo">
-                        <button type="submit" class="form_btn">CADASTRAR</button>
+                        <button class="form_btn">CADASTRAR</button>
                     </div>
                 </form>
             </section>
