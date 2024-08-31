@@ -38,3 +38,20 @@ document.getElementById('cpf').addEventListener('input', function (e) {
     }
     e.target.value = value;
 });
+
+/* ===========REQUISITO DE SENHA =========== */
+document.getElementById("senha").addEventListener("input", function() {
+    const senha = this.value;
+
+    const mincarac = senha.length >= 8;
+    const maiuscula = /[A-Z]/.test(senha);
+    const minuscula = /[a-z]/.test(senha);
+    const numero = /[0-9]/.test(senha);
+    const caracterEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(senha);
+
+    document.getElementById("mincarac").classList.toggle('valid', mincarac)
+    document.getElementById("maiuscula").classList.toggle('valid', maiuscula)
+    document.getElementById("minuscula").classList.toggle('valid', minuscula)
+    document.getElementById("numero").classList.toggle('valid', numero)
+    document.getElementById("caracterEspecial").classList.toggle('valid', caracterEspecial)
+})

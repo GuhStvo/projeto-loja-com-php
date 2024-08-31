@@ -44,10 +44,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     /* Verificação Senha */
+    $padraoSenha = '~(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*\(\)\_\+\[\]\{\}\|\:\"\<\>\.\,\/\?\-]).{8,}$~';
     if (empty($senha)) {
         $erro .= "Preencha o campo senha.<br>";
-    } else if(strlen($senha) < 8) {
-        $erro .= "A senha deve ter no mínimo 8 caracteres.<br>";
+    } else if(!preg_match($padraoSenha, $senha)) {
+        $erro .= "Preencha o campo senha corretamente.<br>";
     } else {
         $senhaCripto = password_hash($senha, PASSWORD_DEFAULT);
     }
@@ -68,9 +69,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $inserindo->bindParam(':email', $email);
     $inserindo->bindParam(':senha', $senha);
 
+
+    $partes = explode(' ', $nome);
+    $primeiroNome = $partes[0];
+
     if ($inserindo->execute($dadosPDO)) {
         // header('location: cadatrese.php?status=ok');
-        echo "Tudo certo, <b>$nome</b>!!<br> Cadasto conclúido, aproveite! 🎊";
+        echo "Tudo certo, <b>$primeiroNome</b>!!<br> Cadasto conclúido, aproveite! 🎊";
     } else {
         // header('location: cadatrese.php?status=erro');
         echo "ERRO PDO";

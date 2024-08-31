@@ -19,6 +19,19 @@
         .btn-comprar {
             padding: .7rem 1rem;
         }
+
+        .requisitos {
+            list-style: none;
+            padding: 0;
+        }
+
+        .requisitos li {
+            color: red;
+            }
+        
+        .requisitos li.valid {
+            color: green;
+        }
     </style>
 </head>
 
@@ -48,7 +61,15 @@
                     </div>
                     <div class="form_grupo">
                         <label for="senha">Senha</label>
-                        <input type="password" name="senha" id="senha" class="form_input" placeholder="Senha com o mínimo de 8 carácteres">
+                        <input type="password" name="senha" id="senha" class="form_input" placeholder="Exemplo: Senha@123">
+
+                        <ul class="requisitos">
+                            <li id="mincarac">Mínimo de 8 caracteres</li>
+                            <li id="maiuscula">Pelo menos uma letra maiúscula</li>
+                            <li id="minuscula">Pelo menos uma letra minúscula</li>
+                            <li id="numero">Pelo menos um número</li>
+                            <li id="caracterEspecial">Pelo menos um caractere especial (@, #, $, etc.)</li>
+                        </ul>
                     </div>
                     <div class="form_grupo">
                         <button class="form_btn">CADASTRAR</button>
