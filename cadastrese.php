@@ -56,7 +56,7 @@
                         <input type="text" name="cpf" id="cpf" class="form_input" maxlength="14" placeholder="000.000.000-00">
                     </div>
                     <div class="form_grupo">
-                        <label for="email">Email</label>
+                        <label for="email">E-mail</label>
                         <input type="email" name="email" id="email" class="form_input" placeholder="Exemplo: seunome@gmail.com">
                     </div>
                     <div class="form_grupo">

@@ -11,10 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $erro = "";
 
     /* Verificação do nome */
+    $padraoNome = '~^[A-Za-zÀ-ÖØ-öø-ÿ]+(?: [A-Za-zÀ-ÖØ-öø-ÿ]+)*$~';
     if (empty($nome)) {
         $erro .= "Preencha o campo nome.<br>";
     } else if(strlen($nome) < 3) {
         $erro .= "O nome necessita de no mínimo 3 caracteres.<br>";
+    } else if (!preg_match($padraoNome, $nome)) {
+        $erro .= "Digite apenas letras, não números <br>";
     }
 
     /* Verificaçã de CPF */
