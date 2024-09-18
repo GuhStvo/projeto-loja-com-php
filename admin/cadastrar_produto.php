@@ -1,7 +1,8 @@
 <?php
-session_start();
-$status = isset($_SESSION['status']) ? $_SESSION['status']:0;
-if(isset($_SESSION['email']) && $status > 0) {
+//cadastrar_produto.php
+// session_start();
+// $status = isset($_SESSION['status']) ? $_SESSION['status']:0;
+// if(isset($_SESSION['email']) && $status > 0) {
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -24,24 +25,45 @@ if(isset($_SESSION['email']) && $status > 0) {
 
 <body>
     <header>
-    <?php 
-            include_once "./menu.php"
+        <?php
+        include_once "../menu.php";
         ?>
     </header>
     <main>
         <div class="conteudo_central">
-            Cadastrar produtos
-        </div>
+            <form action="processar_produto.php" method="post" id="form_cadastro">
+                <div class="form_grupo">
+                    <label for="nome">Nome: </label>
+                    <input type="text" name="nome" id="nome"  class="form_input">
+                </div>
+                <div class="form_grupo">
+                    <label for="valor">Valor: </label>
+                    <input type="text" name="valor" id="valor" class="form_input">
+                </div>
+                <div class="form_grupo">
+                    <label for="descricao"></label>
+                    <textarea name="descricao" id="descricao" cols="30" rows="10" class="form_input"></textarea>
+                </div>
+                <div class="form_grupo">
+                    <button type="submit" class="form_btn">CADASTRAR</button>
+                </div>
+                <div class="form_grupo">
+                    <?php
+                    $msg = $_GET['msg']??"";
+                    echo $msg;
+                    ?>
+                </div>
+            </form>
+        </div>        
     </main>
     <?php
-        include_once "./footer.php";
+        include_once "../footer.php";
     ?>
-    <script src="./js/menu.js"></script>
+    <script src="../js/menu.js"></script>
 </body>
 
 </html>
-
 <?php
-} else {
-    header('location: ./');
-}
+// } else {
+//     header('location: ../');
+// }

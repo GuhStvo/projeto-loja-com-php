@@ -24,24 +24,23 @@ if(isset($_SESSION['email']) && $status > 0) {
 
 <body>
     <header>
-    <?php 
-            include_once "./menu.php"
+        <?php
+        include_once "../menu.php";
         ?>
     </header>
     <main>
         <div class="conteudo_central">
-            Cadastrar produtos
-        </div>
+            
+        </div>        
     </main>
     <?php
-        include_once "./footer.php";
+        include_once "../footer.php";
     ?>
-    <script src="./js/menu.js"></script>
+    <script src="../js/menu.js"></script>
 </body>
 
 </html>
-
 <?php
 } else {
-    header('location: ./');
+    header('location: ../');
 }

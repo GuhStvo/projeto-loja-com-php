@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     echo $erro;
     if($erro == "") {
-            /* Crio o array com os dados */
+        /* Novo dados para o para inserção de pdo */
     $dadosPDO = [
         'nome' => $nome,
         'cpf' => $cpf,
