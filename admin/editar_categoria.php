@@ -1,5 +1,5 @@
 <?php
-//cadastrar_produto.php
+// editar_categoria.php
 // session_start();
 // $status = isset($_SESSION['status']) ? $_SESSION['status']:0;
 // if(isset($_SESSION['email']) && $status > 0) {
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/menu.css">
     <link rel="stylesheet" href="../css/footer.css">
-    <link rel="stylesheet" href="../css/produtos.css">
+    <link rel="stylesheet" href="../css/categorias.css">
     <link rel="stylesheet" href="../css/carrinho.css">
     <link rel="stylesheet" href="../css/form.css">
 </head>
@@ -31,15 +31,37 @@
     </header>
     <main>
         <div class="conteudo_central">
-            <form action="processar_categoria.php" method="post" id="form_cadastro">
+            <?php
+                $con = new PDO("mysql:host=localhost;dbname=banco", 
+                'root', '');
+                if (!$con) {
+                    echo "Problema com conexão";
+                }
+
+                $id_categoria = $_GET['id_categoria'];
+                $sql = "SELECT * FROM categoria where id_categoria=$id_categoria";
+                $stmt = $con->prepare($sql);
+                $stmt->execute();
+                while ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $nome_categoria = $array['nome_categoria'];
+                    
+                }                
+            ?>
+            <form  action="editar_categoria_ok.php" method="post" id="form_cadastro">
+                <input type="hidden" name="id_categoria" id="id_categoria"
+                    value="<?php echo $id_categoria ?>">
                 <div class="form_grupo">
                     <label for="nome">Nome: </label>
-                    <input type="text" name="nome" id="nome"  class="form_input">
+                    <input type="text" name="nome_categoria" id="nome_categoria"
+                    value="<?php echo $nome_categoria ?>" class="form_input">
                 </div>
+                    
+                    </center>
 
 
+       
                 <div class="form_grupo">
-                    <button type="submit" class="form_btn">CADASTRAR</button>
+                    <button type="submit" class="form_btn">ALTERAR</button>
                 </div>
                 <div class="form_grupo">
                     <?php

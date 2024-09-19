@@ -46,6 +46,7 @@
                     $nome_produto = $array['nome_produto'];
                     $valor_produto = $array['valor_produto']; 
                     $descricao_produto = $array['descricao_produto'];
+                    $categoria = $array['id_categoria'];
                     $conteudoImagem = $array['imagem']; // Conteúdo binário da imagem
                     $base64Imagem = base64_encode($conteudoImagem); // Converter para base64
                 }                
@@ -53,16 +54,49 @@
             <form enctype="multipart/form-data" action="editar_produto_ok.php" method="post" id="form_cadastro">
                 <input type="hidden" name="id_produto" id="id_produto"
                     value="<?php echo $id_produto ?>">
+                <!-- Nome -->
                 <div class="form_grupo">
                     <label for="nome">Nome: </label>
                     <input type="text" name="nome_produto" id="nome_produto"
                     value="<?php echo $nome_produto ?>" class="form_input">
                 </div>
+                <!-- Categoria -->
+                <div class="form_grupo">
+                    <label>Categoria</label>
+                    <select name="id_categoria" class="form_input">
+                        <option value="0">-- Selecione uma Categoria --</option>
+                        <?php
+                        /* Faz conexão */
+                        $con = new PDO("mysql:host=localhost;dbname=banco",'root','');
+                        if (!$con) {
+                            echo "Problema com conexão";
+                        }
+                        ?>
+                        <?php
+                        $sql = "SELECT * FROM categoria order by nome_categoria";
+                        $stmt = $con->prepare($sql);
+                        $stmt->execute();
+
+                        while ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            $categoria_selecionada = $array['id_categoria'];
+                            $nome_categoria = $array['nome_categoria'];
+                        ?>
+                            <option value="<?php echo("$categoria") ?>"
+                            <?=($categoria == $categoria_selecionada)?'selected':''?>>
+                            <?php echo("$nome_categoria") ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+
+                </div>
+                <!-- Valor -->
                 <div class="form_grupo">
                     <label for="valor">Valor: </label>
                     <input type="text" name="valor_produto" id="valor_produto"
                     value="<?php echo $valor_produto ?>" class="form_input">
                 </div>
+                <!-- Descrição -->
                 <div class="form_grupo">
                     <label for="descricao"></label>
 
@@ -82,7 +116,8 @@
 
 
        
-                <div class="form_grupo">
+                <div class="form_grupo" style="display: grid; grid-template-columns: 1fr 1fr;gap: 10px;">
+                    <a href="./listar_produtos.php" class="form_btn" style="text-decoration: 0; background-color: red;">Cancelar</a>
                     <button type="submit" class="form_btn">ALTERAR</button>
                 </div>
                 <div class="form_grupo">

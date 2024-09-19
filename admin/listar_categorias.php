@@ -35,38 +35,35 @@
             }
             ?>
             <center>
-            <a href="cadastrar_produto.php" class="form_btn">Novo Produto</a>
+            <!-- Inserir o botão de cadastrar produto antes do table.  -->  
+            <a href="cadastrar_categoria.php" class="form_btn">Nova Categoria</a>
             <br/> 
             <br/>               
             <table border="1">
                 <thead>
                     <tr>
-                        <th>Nro Produto</th>
-                        <th>Nome Produto</th>
-                        <th>Valor</th>
-                        <th>Editar</th>
-                        <th>Excluir</th>
+                        <th style="width:120px;">Nro Categoria</th>
+                        <th style="width:400px;">Nome Categoria</th>
+                        <th style="width:100px;">Editar</th>
+                        <th style="width:100px;">Excluir</th>
                     </tr>
                 </thead>
                 <?php
-                $sql = "SELECT * FROM produtos";
+                $sql = "SELECT * FROM categoria";
                 $stmt = $con->prepare($sql);
                 $stmt->execute();
                 
                 while ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $id_produto = $array['id_produto'];
-                    $nome_produto = $array['nome_produto'];
-                    $valor_produto = $array['valor_produto'];
+                    $id_categoria = $array['id_categoria'];
+                    $nome_categoria = $array['nome_categoria'];
+
                     ?>
                     <tr>
-                        <td style="width:100px; text-align: center;"><?php echo $id_produto; ?></td>
-                        <td style="width:300px; text-align: center;"><?php echo $nome_produto; ?></td>
-                        <td style="width:200px; text-align: right;">
-                        <?php echo 'R$ ' . number_format($valor_produto, 
-                        2, ',', '.'); ?></td>
-                        <td style="width:100px; text-align: center;">
-                        <a href="editar_produto.php?id_produto=<?php echo $id_produto ?>" class="form_btn">Editar</a></td>
-                        <td style="width:100px; text-align: center;"><a href="#" class="form_btn">Excluir</a></td>
+                        <td style="text-align: center;"><?php echo $id_categoria; ?></td>
+                        <td style="text-align: center;"><?php echo $nome_categoria; ?></td>
+                        <td style="text-align: center;">
+                        <a href="editar_categoria.php?id_categoria=<?php echo $id_categoria ?>" class="form_btn">Editar</a></td>
+                        <td style="text-align: center;"><a href="#" class="form_btn">Excluir</a></td>
                     </tr>
                 <?php } ?>
             </table>

@@ -34,30 +34,63 @@
             <form action="processar_produto.php" method="post" id="form_cadastro">
                 <div class="form_grupo">
                     <label for="nome">Nome: </label>
-                    <input type="text" name="nome" id="nome"  class="form_input">
+                    <input type="text" name="nome" id="nome" class="form_input">
+                </div>
+                <div class="form_grupo">
+                    <label>Categoria</label>
+                    <select name="id_categoria" class="form_input">
+                        <option value="0">-- Selecione uma Categoria --</option>
+                        <?php
+                        /* Faz conexão */
+                        $con = new PDO("mysql:host=localhost;dbname=banco",'root','');
+                        if (!$con) {
+                            echo "Problema com conexão";
+                        }
+                        ?>
+                        <?php
+                        $sql = "SELECT * FROM categoria order by nome_categoria";
+                        $stmt = $con->prepare($sql);
+                        $stmt->execute();
+
+                        while ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            $id_categoria = $array['id_categoria'];
+                            $nome_categoria = $array['nome_categoria'];
+                        ?>
+                            <option value="<?php echo $id_categoria; ?>">
+                                <?php echo $nome_categoria; ?>
+                            </option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+
                 </div>
                 <div class="form_grupo">
                     <label for="valor">Valor: </label>
                     <input type="text" name="valor" id="valor" class="form_input">
                 </div>
                 <div class="form_grupo">
-                    <label for="descricao"></label>
+                    <label for="descricao">Descrição</label>
                     <textarea name="descricao" id="descricao" cols="30" rows="10" class="form_input"></textarea>
                 </div>
+<!--                 <div class="form_grupo">
+                    <label for="descricao">Adicionar imagem</label>
+                    <input type="file">
+                </div> -->
                 <div class="form_grupo">
                     <button type="submit" class="form_btn">CADASTRAR</button>
                 </div>
                 <div class="form_grupo">
                     <?php
-                    $msg = $_GET['msg']??"";
+                    $msg = $_GET['msg'] ?? "";
                     echo $msg;
                     ?>
                 </div>
             </form>
-        </div>        
+        </div>
     </main>
     <?php
-        include_once "../footer.php";
+    include_once "../footer.php";
     ?>
     <script src="../js/menu.js"></script>
 </body>
