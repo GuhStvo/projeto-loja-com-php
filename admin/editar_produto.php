@@ -117,7 +117,7 @@
 
        
                 <div class="form_grupo" style="display: grid; grid-template-columns: 1fr 1fr;gap: 10px;">
-                    <a href="./listar_produtos.php" class="form_btn" style="text-decoration: 0; background-color: red;">Cancelar</a>
+                    <a href="./listar_produtos.php" class="form_btn" style="text-decoration: 0; background-color: red; display: flex; align-items: center; justify-content: center; font-weight: 700;">Cancelar</a>
                     <button type="submit" class="form_btn">ALTERAR</button>
                 </div>
                 <div class="form_grupo">
