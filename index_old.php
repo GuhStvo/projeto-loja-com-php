@@ -66,39 +66,23 @@
             <section id="produtos">
                 <!-- Produto 1 -->
                 <?php
-                /* Conexão com banco de dados */
-                $con = new PDO(dsn:"mysql:host=localhost;dbname=banco", username:'root', password: '');
-
-                if (!$con) {
-                    echo "Problema com a conexão";
-                }
-                $sql = "SELECT * FROM produtos INNER JOIN categoria ON produtos.id_categoria=categoria .id_categoria ORDER BY produtos.descricao_produto";
-                $stmt = $con->prepare($sql);
-                $stmt->execute();
-
-
-                while ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $nome_produto = $array['nome_produto'];
-                    $valor_produto = $array['valor_produto'];
-                    $descricao_produto = $array['descricao_produto'];
-                    $categoria = $array['id_categoria'];
-                    $conteudoImagem = $array['imagem']; // Conteúdo binário da imagem
-                    $base64Imagem = base64_encode($conteudoImagem); // Converter para base64
-                    echo "
-                <div class='card'>
-                    <div class='card-header' style='overflow: hidden;'>
-                        $nome_produto
+                $i = 1;
+                while ($i < 10) {
+                    echo '
+                <div class="card">
+                    <div class="card-header">
+                        Smartphone Samsung A54
                     </div>
-                    <div class='card-body'>
-                        <a href='detalhes_produto.php'><img style='width: 100%; height: 100%; aspect-ratio: 4/3; object-fit: contain;' src='data:image/jpeg;base64,{$base64Imagem}'></a>
+                    <div class="card-body">
+                        <a href="detalhes_produto.php"><img src="img/celularA54.jfif" width="200"></a>
                     </div>
-                    <div class='card-footer'>
-                        <div class='card-valor'>R$ 2999,90</div>
-                        <div class='card-oferta'>R$ $valor_produto,00</div>
-                        <div class='btn-comprar'>
-                            <a href='add_carrinho.php'>Comprar</a>
+                    <div class="card-footer">
+                        <div class="card-valor">R$ 2999,90</div>
+                        <div class="card-oferta">R$ 2599,90</div>
+                        <div class="btn-comprar">
+                            <a href="add_carrinho.php">Comprar</a>
                         </div>
-                        <div class='star'>
+                        <div class="star">
                             <span>&#9734;</span>
                             <span>&#9734;</span>
                             <span>&#9734;</span>
@@ -106,7 +90,8 @@
                             <span>&#9734;</span>
                         </div>
                     </div>
-                </div>";
+                </div>';
+                    $i++;
                 }
                 ?>
             </section>

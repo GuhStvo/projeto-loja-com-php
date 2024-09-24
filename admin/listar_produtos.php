@@ -5,6 +5,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,48 +29,65 @@
     <main>
         <div class="conteudo_central">
             <?php
-            $con = new PDO("mysql:host=localhost;dbname=banco", 
-            'root', '');
+            $con = new PDO(
+                "mysql:host=localhost;dbname=banco",
+                'root',
+                ''
+            );
             if (!$con) {
                 echo "Problema com conexão";
             }
             ?>
             <center>
-            <a href="cadastrar_produto.php" class="form_btn">Novo Produto</a>
-            <br/> 
-            <br/>               
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th>Nro Produto</th>
-                        <th>Nome Produto</th>
-                        <th>Valor</th>
-                        <th>Editar</th>
-                        <th>Excluir</th>
-                    </tr>
-                </thead>
-                <?php
-                $sql = "SELECT * FROM produtos";
-                $stmt = $con->prepare($sql);
-                $stmt->execute();
-                
-                while ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $id_produto = $array['id_produto'];
-                    $nome_produto = $array['nome_produto'];
-                    $valor_produto = $array['valor_produto'];
+                <a href="cadastrar_produto.php" class="form_btn">Novo Produto</a>
+                <br />
+                <br />
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Nro Produto</th>
+                            <th>Nome Produto</th>
+                            <th>Categoria</th>
+                            <th>Valor</th>
+                            <th>Editar</th>
+                            <th>Excluir</th>
+                        </tr>
+                    </thead>
+                    <?php
+                    $sql = "SELECT * FROM produtos INNER JOIN categoria ON produtos.id_categoria=categoria .id_categoria ORDER BY produtos.descricao_produto";
+                    $stmt = $con->prepare($sql);
+                    $stmt->execute();
+
+                    while ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $id_produto = $array['id_produto'];
+                        $nome_produto = $array['nome_produto'];
+                        $valor_produto = $array['valor_produto'];
+                        $categoria_produto = $array['nome_categoria']
                     ?>
-                    <tr>
-                        <td style="width:100px; text-align: center;"><?php echo $id_produto; ?></td>
-                        <td style="width:300px; text-align: center;"><?php echo $nome_produto; ?></td>
-                        <td style="width:200px; text-align: right;">
-                        <?php echo 'R$ ' . number_format($valor_produto, 
-                        2, ',', '.'); ?></td>
-                        <td style="width:100px; text-align: center;">
-                        <a href="editar_produto.php?id_produto=<?php echo $id_produto ?>" class="form_btn">Editar</a></td>
-                        <td style="width:100px; text-align: center;"><a href="#" class="form_btn">Excluir</a></td>
-                    </tr>
-                <?php } ?>
-            </table>
+                        <tr>
+                            <!-- ID do Produto -->
+                            <td style="width:100px; text-align: center;">
+                                <?php echo $id_produto; ?>
+                            </td>
+                            <!-- Nome do produto -->
+                            <td style="width:300px; text-align: center;">
+                                <?php echo $nome_produto; ?>
+                            </td>
+                            <!-- Categoria do produto -->
+                            <td style="width: 300px; text-align: center;">
+                                <?php echo $categoria_produto ?>
+                            </td>
+                            <!-- Valor do produto -->
+                            <td style="width:200px; text-align: right;">
+                                <?php echo 'R$ ' . number_format($valor_produto, 2, ',', '.'); ?>
+                            </td>
+                            <td style="width:100px; text-align: center;">
+                                <a href="editar_produto.php?id_produto=<?php echo $id_produto ?>" class="form_btn">Editar</a>
+                            </td>
+                            <td style="width:100px; text-align: center;"><a href="#" class="form_btn">Excluir</a></td>
+                        </tr>
+                    <?php } ?>
+                </table>
             </center>
         </div>
     </main>
