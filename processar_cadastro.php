@@ -1,5 +1,6 @@
 <?php 
 include "./admin/conexao.php";
+/* $con = new PDO("mysql:host=localhost;dbname=banco", 'root', ''); */
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     /* Pegou os dados do formulário */

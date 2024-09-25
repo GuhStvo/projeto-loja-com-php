@@ -29,7 +29,7 @@
             <section class="formulario_geral">
                 <form method="post" id="form_login">
                     <h1>Entrar na LojaTech</h1>
-                    <input type="text" name="status" id="status" class="form_input">
+                    <!-- <input type="text" name="status" id="status" class="form_input"> -->
                     <div class="form_grupo">
                         <input type="email" name="email" id="email" class="form_input" placeholder="Email">
                     </div>

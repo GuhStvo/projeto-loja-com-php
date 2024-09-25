@@ -50,30 +50,24 @@
                     <div class="form_grupo">
                         <label for="nome">Nome</label>
                         <input type="text" name="nome" id="nome" class="form_input" placeholder="Insira seu nome">
-                        <ul class="requisitos" >
-                            <li id="mincarac">Mínimo de 8 caracteres</li>
-                        </ul>
                     </div>
                     <div class="form_grupo">
                         <label for="cpf">CPF</label>
                         <input type="text" name="cpf" id="cpf" class="form_input" maxlength="14" placeholder="000.000.000-00">
-                        <ul class="requisitos">
-                            <li id="mincarac">Mínimo de 8 caracteres</li>
-                        </ul>
                     </div>
                     <div class="form_grupo">
                         <label for="email">E-mail</label>
                         <input type="email" name="email" id="email" class="form_input" placeholder="Exemplo: seunome@gmail.com">
-                        <ul class="requisitos">
-                            <li id="mincarac">Mínimo de 8 caracteres</li>
-                        </ul>
                     </div>
                     <div class="form_grupo">
                         <label for="senha">Senha</label>
                         <input type="password" name="senha" id="senha" class="form_input" placeholder="Exemplo: Senha@123">
-
                         <ul class="requisitos">
                             <li id="mincarac">Mínimo de 8 caracteres</li>
+                            <li id="maiuscula">Pelo menos uma letra maiúscula</li>
+                            <li id="minuscula">Pelo menos uma letra minúscula</li>
+                            <li id="numero">Pelo menos um número</li>
+                            <li id="caracterEspecial">Pelo menos um caractere especial (@, #, $, etc.)</li>
                         </ul>
                     </div>
                     <div class="form_grupo">
