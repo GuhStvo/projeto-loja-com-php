@@ -1,50 +1,35 @@
 <?php
-
-/* $nome_admin = "Admin";
-$login_admin = "admin@email.com";
-$senha_admin = "123";
-$nome_user = "Usuário";
-$login_user = "user@email.com";
-$senha_user = "321"; */
-
-include_once './admin/conexao.php';
-
-
+include_once "./admin/conexao.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
-    $senhaLogin = $_POST['senhaLogin'];
+    $senha = $_POST['senha'];
 
-    $selectEmail = $conexao->prepare("SELECT * FROM usuario WHERE email, senha = :email, :senhaBD");
+    $selectEmail = $conexao->prepare("SELECT * FROM usuario WHERE email = :email");
     $selectEmail->bindParam('email', $email);
     $selectEmail->execute();
-    while ($array = $selectEmail->fetch(PDO::FETCH_ASSOC)) {
-        $id_usuario = $array['id_usuario'];
-        $senha_banco = $array['senhaLogin'];
+    $array = $selectEmail->fetch(PDO::FETCH_ASSOC);
+
+    if ($array) {
+        $senha_banco = $array['senha'];
         $email_banco = $array['email'];
-    }
+        $nome = $array['nome'];
+        $id_usuario =  $array['id_usuario'];
 
+        if ($email == $email_banco && password_verify($senha, $senha_banco)) {
+            session_start();
+            $_SESSION['email'] = $email_banco;
+            $_SESSION['nome'] = $nome;
+            $_SESSION['id_usuario'] = $id_usuario;
 
-
-        if ($email == $login_admin) {
-            if ($senha == $senha_admin) {
-                // Verifica se existe uma sessão, se não existir ele inicia uma sessão
-                session_start();
-                // Global SESSION grava dados da pessoa logada
-                $_SESSION['email'] = $login_admin;
-                $_SESSION['nome'] = $nome_admin;
-                $_SESSION['status'] = 1;
-                // Redireciona a página para o local indicado, no caso (raiz) index.php
-                // header('location: ./');
-                echo "Ok você está autenticado.";
-            } else {
-                // header('location: ./?erro=erro');
-                echo "Login ou senha inválidos.";
-            } //Caso a senha esteja errada
+            //echo "Sessão iniciada. Nome: " . $_SESSION['nome'];
+            header('Location: index.php');
+            //exit();
         } else {
-            // header('location: ./?erro=erro');
             echo "Login ou senha inválidos.";
-        } // Caso o osuário esteja correto
+        }
+    } else {
+        echo "Login ou senha inválidos.";
+    }
 }
-
-/* Fatal error: Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\front\logar.php:21 Stack trace: #0 C:\xampp\htdocs\front\logar.php(21): PDOStatement->execute() #1 {main} thrown in C:\xampp\htdocs\front\logar.php on line 21 */
+?>

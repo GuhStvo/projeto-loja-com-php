@@ -20,16 +20,16 @@
 <body>
     <header>
         <?php
-        include_once "menu.php"
+        include_once "menu.php";
         ?>
         <dialog id="avisos"></dialog>
     </header>
     <main>
         <div class="conteudo_central">
             <section class="formulario_geral">
-                <form method="post" id="form_login">
+                <form action="logar.php" method="post" id="form_login">
                     <h1>Entrar na LojaTech</h1>
-                    <!-- <input type="text" name="status" id="status" class="form_input"> -->
+                    <input type="hidden" name="status" id="status">
                     <div class="form_grupo">
                         <input type="email" name="email" id="email" class="form_input" placeholder="Email">
                     </div>
@@ -44,34 +44,10 @@
         </div>
     </main>
     <?php
-    include_once "footer.php";
+        include_once "footer.php";
     ?>
     <script src="js/menu.js"></script>
-    <script>
-        const form = document.getElementById("form_login");
-        const dialog = document.getElementById('avisos')
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            let data = new FormData(form);
-            // console.log(data);
-            fetch("logar.php", {
-                    method: 'POST',
-                    body: data,
-                })
-                .then((resposta) => {
-                    if (resposta.ok) {
-                        return resposta.text();
-                    }
-                })
-                .then((msg) => {
-                    dialog.innerHTML = msg;
-                    dialog.open = true;
-                    setTimeout(() =>{
-                        dialog.open = false;
-                    }, 3000)
-                })
-        })
-    </script>
+ 
 </body>
 
 </html>

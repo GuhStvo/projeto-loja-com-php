@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -13,40 +15,20 @@
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/produtos.css">
-    <style>
-        dialog {
-            position: absolute;
-            z-index: 2;
-            width: 300px;
-            height: 200px;
-            left: 50%;
-            right: 50%;
-            transform: translate(-50%, 50%);
-
-            /* display: flex;
-            justify-content: center;
-            align-items: center; */
-            border-radius: 18px;
-            text-transform: uppercase;
-            color: red;
-            font-weight: 700;
-        }
-    </style>
 </head>
 
 <body>
     <header>
         <?php
-        // inclui o arquivo na página, include_once verifica se a página já não foi incluída antes
         include_once "menu.php";
-        //Isset verifica se uma variável existe
         $erro = isset($_GET['erro']) ? "Login ou senha inválidos" : "";
         $open = isset($_GET['erro']) ? "open" : "";
         ?>
-        <dialog <?=$open?>>
+        <dialog <?= $open ?>>
             <?php
             echo $erro;
             ?>
+            <button id="fechar">OK</button>
         </dialog>
         <section class="carrossel">
             <div class="imagem-container">
@@ -61,52 +43,73 @@
             </div>
         </section>
     </header>
+    <center>
+    <?php
+    
+    if (isset($_SESSION['nome'])) {
+        echo "<h2>Bem-vindo, " . htmlspecialchars($_SESSION['nome']) . "!</h2>";
+        $id_usuario=$_SESSION['id_usuario'];
+   
+    } else {
+        echo "<p>Nome não encontrado na sessão.</p>";
+    }
+    ?>   
+    </center>           
     <main>
         <div class="conteudo_central">
             <section id="produtos">
                 <!-- Produto 1 -->
                 <?php
-                /* Conexão com banco de dados */
-                $con = new PDO(dsn:"mysql:host=localhost;dbname=banco", username:'root', password: '');
-
+                // Conexão com o banco de dados - Não copiar o que está em cinza
+                $con = new PDO("mysql:host=localhost;dbname=banco", 'root', '');
                 if (!$con) {
-                    echo "Problema com a conexão";
+                   echo "Problema com conexão";
                 }
-                $sql = "SELECT * FROM produtos INNER JOIN categoria ON produtos.id_categoria=categoria .id_categoria ORDER BY produtos.descricao_produto";
+                // Consulta do produtos relacionado com a tabela de categorias
+                $sql = "SELECT * FROM produtos INNER JOIN categoria ON produtos.id_categoria=categoria.id_categoria ORDER BY produtos.descricao_produto";
                 $stmt = $con->prepare($sql);
-                $stmt->execute();
-
-
+                $stmt->execute();      
+                // laço para exibição de todos os registros que a query trouxe    
                 while ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $id_produto = $array['id_produto'];
                     $nome_produto = $array['nome_produto'];
                     $valor_produto = $array['valor_produto'];
-                    $descricao_produto = $array['descricao_produto'];
-                    $categoria = $array['id_categoria'];
+                    $nome_categoria = $array['nome_categoria'];
+                    // convertendo o código para imagem
                     $conteudoImagem = $array['imagem']; // Conteúdo binário da imagem
-                    $base64Imagem = base64_encode($conteudoImagem); // Converter para base64
+                    $base64Imagem = base64_encode($conteudoImagem); // Converter para base64 
+                    // aspa dupla vem antes da aspa simples (hierarquia)                   
                     echo "
-                <div class='card'>
-                    <div class='card-header' style='overflow: hidden;'>
-                        $nome_produto
-                    </div>
-                    <div class='card-body'>
-                        <a href='detalhes_produto.php'><img style='width: 100%; height: 100%; aspect-ratio: 4/3; object-fit: contain;' src='data:image/jpeg;base64,{$base64Imagem}'></a>
-                    </div>
-                    <div class='card-footer'>
-                        <div class='card-valor'>R$ 2999,90</div>
-                        <div class='card-oferta'>R$ $valor_produto,00</div>
-                        <div class='btn-comprar'>
-                            <a href='add_carrinho.php'>Comprar</a>
+                    <div class=\"card\" >
+                        <div class=\"card-header\">
+                            $nome_produto
                         </div>
-                        <div class='star'>
-                            <span>&#9734;</span>
-                            <span>&#9734;</span>
-                            <span>&#9734;</span>
-                            <span>&#9734;</span>
-                            <span>&#9734;</span>
+                        <div class=\"card-body\">
+                            <a href=\"detalhes_produto.php\">";
+                            if ($conteudoImagem != '') {
+                             echo "<img src='data:image/jpeg;base64,{$base64Imagem}' width='200px' />";
+                            }
+                            echo "      </a>
                         </div>
-                    </div>
-                </div>";
+                        <div class=\"card-footer\">
+                            <div class=\"card-valor\">R$ " 
+                            . number_format($valor_produto, 2, ',', '.') 
+                            . "</div>
+                            <div class=\"card-oferta\">R$ " 
+                            . number_format($valor_produto, 2, ',', '.') 
+                            . "</div>
+                            <div class=\"btn-comprar\">
+                                <a href=\"#\">Comprar</a>
+                            </div>
+                            <div class=\"star\">
+                                <span>☆</span>
+                                <span>☆</span>
+                                <span>☆</span>
+                                <span>☆</span>
+                                <span>☆</span>
+                            </div>
+                        </div>
+                    </div>";
                 }
                 ?>
             </section>

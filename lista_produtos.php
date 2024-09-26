@@ -39,35 +39,58 @@
     </header>
     <main>
         <div class="conteudo_central">
-            <section id="produtos">
+        <section id="produtos">
                 <!-- Produto 1 -->
                 <?php
-                $i = 1;
-                while($i < 15) {
-                echo '
-                <div class="card">
-                    <div class="card-header">
-                        Smartphone Samsung A54
-                    </div>
-                    <div class="card-body">
-                        <a href="detalhes_produto.php"><img src="img/celularA54.jfif" width="200"></a>
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-valor">R$ 2999,90</div>
-                        <div class="card-oferta">R$ 2599,90</div>
-                        <div class="btn-comprar">
-                            <a href="add_carrinho.php">Comprar</a>
+                // Conexão com o banco de dados - Não copiar o que está em cinza
+                $con = new PDO("mysql:host=localhost;dbname=banco", 'root', '');
+                // Consulta do produtos relacionado com a tabela de categorias
+
+                $pesquisa = $_GET['pesquisa'];
+                $sql = "SELECT * FROM produtos INNER JOIN categoria ON produtos.id_categoria=categoria.id_categoria WHERE nome_produto LIKE '%$pesquisa%' ORDER BY produtos.descricao_produto";
+                $stmt = $con->prepare($sql);
+                $stmt->execute();      
+                // laço para exibição de todos os registros que a query trouxe    
+                while ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $id_produto = $array['id_produto'];
+                    $nome_produto = $array['nome_produto'];
+                    $valor_produto = $array['valor_produto'];
+                    $nome_categoria = $array['nome_categoria'];
+                    // convertendo o código para imagem
+                    $conteudoImagem = $array['imagem']; // Conteúdo binário da imagem
+                    $base64Imagem = base64_encode($conteudoImagem); // Converter para base64 
+                    // aspa dupla vem antes da aspa simples (hierarquia)                   
+                    echo "
+                    <div class=\"card\">
+                        <div class=\"card-header\">
+                            $nome_produto
                         </div>
-                        <div class="star">
-                            <span>&#9734;</span>
-                            <span>&#9734;</span>
-                            <span>&#9734;</span>
-                            <span>&#9734;</span>
-                            <span>&#9734;</span>
+                        <div class=\"card-body\">
+                            <a href=\"detalhes_produto.php\">";
+                            if ($conteudoImagem != '') {
+                             echo "<img src='data:image/jpeg;base64,{$base64Imagem}' width='200px' />";
+                            }
+                            echo "      </a>
                         </div>
-                    </div>
-                </div>';
-                $i++;
+                        <div class=\"card-footer\">
+                            <div class=\"card-valor\">R$ " 
+                            . number_format($valor_produto, 2, ',', '.') 
+                            . "</div>
+                            <div class=\"card-oferta\">R$ " 
+                            . number_format($valor_produto, 2, ',', '.') 
+                            . "</div>
+                            <div class=\"btn-comprar\">
+                                <a href=\"#\">Comprar</a>
+                            </div>
+                            <div class=\"star\">
+                                <span>☆</span>
+                                <span>☆</span>
+                                <span>☆</span>
+                                <span>☆</span>
+                                <span>☆</span>
+                            </div>
+                        </div>
+                    </div>";
                 }
                 ?>
             </section>
