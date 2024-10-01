@@ -85,7 +85,7 @@
                             $nome_produto
                         </div>
                         <div class=\"card-body\">
-                            <a href=\"detalhes_produto.php\">";
+                            <a href=\"detalhes_produto.php?id_produto=$id_produto\">";
                             if ($conteudoImagem != '') {
                              echo "<img src='data:image/jpeg;base64,{$base64Imagem}' width='200px' />";
                             }
@@ -93,13 +93,13 @@
                         </div>
                         <div class=\"card-footer\">
                             <div class=\"card-valor\">R$ " 
-                            . number_format($valor_produto, 2, ',', '.') 
+                            . number_format($valor_produto + ($valor_produto * 0.1), 2, ',', '.') 
                             . "</div>
                             <div class=\"card-oferta\">R$ " 
                             . number_format($valor_produto, 2, ',', '.') 
                             . "</div>
                             <div class=\"btn-comprar\">
-                                <a href=\"#\">Comprar</a>
+                                <a href=\"?id_produto=$id_produto\">Comprar</a>
                             </div>
                             <div class=\"star\">
                                 <span>☆</span>

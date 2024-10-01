@@ -22,37 +22,76 @@
     ?>
     </header>
     <main>
+        <?php
+                $con = new PDO("mysql:host=localhost;dbname=banco", 'root', '');
+                $id_produto = $_GET["id_produto"];
+
+                $sql = "SELECT * FROM produtos INNER JOIN categoria ON produtos.id_categoria=categoria.id_categoria WHERE id_produto = $id_produto";
+                $stmt = $con->prepare($sql);
+                $stmt->execute();      
+                // laço para exibição de todos os registros que a query trouxe    
+                while ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $id_produto = $array['id_produto'];
+                    $nome_produto = $array['nome_produto'];
+                    $valor_produto = $array['valor_produto'];
+                    $nome_categoria = $array['nome_categoria'];
+                    $desc_produto = $array['descricao_produto'];
+                    // convertendo o código para imagem
+                    $conteudoImagem = $array['imagem']; // Conteúdo binário da imagem
+                    $base64Imagem = base64_encode($conteudoImagem); // Converter para base64 
+                    // aspa dupla vem antes da aspa simples (hierarquia)  
+                }
+        ?>
+
         <div class="conteudo_central">
             <section id="produtos">
                 <div class="fotos">
                     <div class="foto_principal">
-                        <img src="img/sansung23.jpeg" width="280" alt="Smartphone">
+                    <?php
+                    if ($conteudoImagem != '') {
+                             echo "<img id='imgs-produto-detalhe' src='data:image/jpeg;base64,{$base64Imagem}' width='200px' alt='$nome_produto' />";
+                            }
+                    ?>
                     </div>
                     <div class="galeria">
+<!--                    <img src="img/sansung23.jpeg" width="70" alt="Smartphone">
                         <img src="img/sansung23.jpeg" width="70" alt="Smartphone">
                         <img src="img/sansung23.jpeg" width="70" alt="Smartphone">
-                        <img src="img/sansung23.jpeg" width="70" alt="Smartphone">
-                        <img src="img/sansung23.jpeg" width="70" alt="Smartphone">
+                        <img src="img/sansung23.jpeg" width="70" alt="Smartphone"> -->
                     </div>
                 </div>
                 <div class="container_descricao">
                     <h1>
-                        Smartphone Samsung Galaxy S23 FE 5G 128GB, 8GB RAM, Inteligência Artificial, Câmera Tripla,
-                        Selfie de 10MP, Tela 6.4" Exynos 2200 Octa Core - Azul
+                        <?php
+                        echo $nome_produto
+                        ?>
                     </h1>
                     <div class="container_detalhes">
+                        <?php
+                        $valorFormatado = number_format($valor_produto, 2, ',', '.')
+                        ?>
                         <div>10% desconto no PIX</div>
                         <div>Parcelamento sem juros</div>
-                        <div>1 X 3499,00 s/ juros</div>
-                        <div>2 X 1749,50 s/ juros</div>
-                        <div>3 X 874,75 s/ juros</div>
-                        <div>4 X 437,38 s/ juros</div>
-                        <div>5 X 218,69 s/ juros</div>
+                        <?php
+                        for ($i=1;$i<6;$i++) {
+                            $parcelamento = $valor_produto / $i;
+                            echo '<div>' . $i .' X ' . number_format($parcelamento, 2, ',', '.') . 's/ juros</div>';
+                        }
+                        ?>
                     </div>
                     <div class="container_footer">
                         <div class="container_valor">
-                            <div class="card-valor">R$ 4.499</div>
-                            <div class="card-oferta">R$ 3.499</div>
+                            <div class="card-valor">
+                                <?php
+                                $desconto = $valor_produto * 0.1;
+                                echo "RS " . number_format($valor_produto + $desconto, 2, ',', '.')
+                                ?>
+                            </div>
+                            <div class="card-oferta">
+                                <?php
+                                echo "R$ $valorFormatado";
+                                ?>
+                            </div>
                         </div>
                         <div class="btn-comprar"><a href="add_carrinho.php">Comprar</a></div>
                     </div>
@@ -67,8 +106,9 @@
                 </ul>
                 <div class="tabs_item active" id="tab1">
                     <div class="tab_conteudo">
-                        Tab 1
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptates in laborum nihil nulla maiores suscipit laboriosam harum quos rem, quidem nemo unde saepe expedita neque aperiam repellat assumenda perspiciatis iusto!
+                        <?php
+                        echo $desc_produto;
+                        ?>
                     </div>
                 </div>
                 <div class="tabs_item" id="tab2">
