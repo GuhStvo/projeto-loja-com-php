@@ -81,7 +81,7 @@
                     // aspa dupla vem antes da aspa simples (hierarquia)                   
                     echo "
                     <div class=\"card\" >
-                        <div class=\"card-header\">
+                        <div class=\"card-header\" title=\"$nome_produto\">
                             $nome_produto
                         </div>
                         <div class=\"card-body\">
@@ -98,9 +98,9 @@
                             <div class=\"card-oferta\">R$ " 
                             . number_format($valor_produto, 2, ',', '.') 
                             . "</div>
-                            <div class=\"btn-comprar\">
-                                <a href=\"?id_produto=$id_produto\">Comprar</a>
-                            </div>
+                                <a class=\"btn-comprar\" href=\"detalhes_produto.php?id_produto=$id_produto\">
+                                    Comprar
+                                </a>
                             <div class=\"star\">
                                 <span>☆</span>
                                 <span>☆</span>

@@ -24,14 +24,17 @@
 }
 
 .card img {
-  width: 100%;
-  margin: auto;
-  max-width: 100px;
+  width: 100%; height: 100%; aspect-ratio: 4/3; object-fit: contain;
 }
 
 .card-header {
+  height: 100%;
   text-align: center;
   font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: default;
 }
 
 .card-body {
@@ -45,21 +48,23 @@
 }
 
 .btn-comprar {
+  display: block;
   width: 100%;
   max-width: 200px;
   margin: auto;
-  padding: 0 1rem;
+  padding: 0.2rem 1rem;
   border-radius: var(--arredondar);
   background: var(--azul);
   box-shadow: 3px 2px 4px 0px rgba(0, 0, 0, 0.25);
   text-align: center;
   font-size: 1.2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fff;
 }
 
-.btn-comprar a {
-  /* padding: 1rem .5rem; */
-  text-decoration: none;
-  color: #fff;
+.btn-comprar:hover {
+  opacity: 0.90;
 }
 
 .card div {

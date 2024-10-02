@@ -24,7 +24,7 @@
 
 <body>
     <header>
-        <?php include_once "../menu.php"; ?>
+        <?php include_once "./menu_admin.php"; ?>
     </header>
     <main>
         <div class="conteudo_central">
@@ -54,6 +54,12 @@
                         </tr>
                     </thead>
                     <?php
+                    $pesquisa = $_GET['pesquisa'];
+                    $parametro='';
+                    if($pesquisa!= '') {
+                        $parametro = "SELECT * FROM produtos INNER JOIN catgoria ON produtos.id_categoria=categoria.id_categoria $parametro ORDER BY produto.descricao_produto";
+                    }
+
                     $sql = "SELECT * FROM produtos INNER JOIN categoria ON produtos.id_categoria=categoria .id_categoria ORDER BY produtos.descricao_produto";
                     $stmt = $con->prepare($sql);
                     $stmt->execute();
