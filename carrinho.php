@@ -27,6 +27,19 @@
             include_once "menu.php"
         ?>
     </header>
+
+    <center>
+    <?php
+    
+    if (isset($_SESSION['nome'])) {
+        echo "<h2>Bem-vindo, " . htmlspecialchars($_SESSION['nome']) . "!</h2>";
+        $id_usuario=$_SESSION['id_usuario'];
+   
+    } else {
+        echo "<p>Nome não encontrado na sessão.</p>";
+    }
+    ?>   
+    </center> 
     <main>
         <div class="conteudo_central">
             <section class="carrinho">
@@ -41,40 +54,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Capa para Celular Samsung A54</td>
-                            <td>1</td>
-                            <td class="money">R$ 50,00</td>
-                            <td class="money">R$ 50,00</td>
-                            <td class="acoes"><a href="#"><i class="fa fa-plus"></i></a> <a href="#"><i
-                                        class="fa fa-trash"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>Smartphone Samsung A5</td>
-                            <td>1</td>
-                            <td class="money">R$ 2.150,00</td>
-                            <td class="money">R$ 2.150,00</td>
-                            <td class="acoes"><a href="#"><i class="fa fa-plus"></i></a> <a href="#"><i
-                                        class="fa fa-trash"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>Pen Drive 128g USB 2.0</td>
-                            <td>2</td>
-                            <td class="money">R$ 35,00</td>
-                            <td class="money">R$ 35,00</td>
-                            <td class="acoes"><a href="#"><i class="fa fa-plus"></i></a> <a href="#"><i
-                                        class="fa fa-trash"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td>TV Samsung 42”</td>
-                            <td>2</td>
-                            <td class="money">R$ 3.099,00</td>
-                            <td class="money">R$ 3.099,00</td>
-                            <td class="acoes">
-                                <a href="#"><i class="fa fa-plus"></i></a> 
-                                <a href="#"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
+
+                    <?php
+                    // Conexão com o banco de dados - Não copiar o que está em cinza
+                    $con = new PDO("mysql:host=localhost;dbname=banco", 'root', '');
+                    if (!$con) {
+                       echo "Problema com conexão";
+                    }
+
+                    $sql = "SELECT * FROM compra inner join compra_itens inner join produtos on compra.id_compra=compra_itens.id_compra and compra_itens.id_produto=produtos.id_produto WHERE id_usuario= $id_usuario";
+                    $stmt = $con->prepare($sql);
+                    $stmt->execute();
+
+                    while ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $nome_produto = $array['nome_produto'];
+                        $quantidade = $array['quantidade'];
+                        $valor = $array['valor'];
+                        $valor_total = $valor*$quantidade;
+                        $totalcarrinho = $totalcarrinho + $valor_total;
+                        echo "<tr>";
+                        echo  "<td>$nome_produto</td>";
+                        echo  "<td>$quantidade</td>";
+                        echo  "<td class='money'>$valor</td>";
+                        echo  "<td class='money'>$valor</td>";
+                        echo  "<td class='acoes'><a href='#'><i class='fa fa-plus'></i></a> <a href='#'><i
+                            class='fa fa-trash'></i></a></td>
+                        </tr>";
+                    }
+                    ?>
                     </tbody>
                 </table>
                 <div class="finalizar">

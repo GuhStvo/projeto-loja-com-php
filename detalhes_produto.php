@@ -107,11 +107,11 @@
 
                         <form action="add_carrinho.php" method="post" id="carrinho">
                             <!-- Pegando id do produto -->
-                            <input class="form-input" type="text" name="id_produto" id="id_produto" value="<?php echo $id_produto?>" disabled>
+                            <input type="text" name="id_usuario" id="id_usuario" value="<?php echo $id_usuario?>">
+                            <input class="form-input" type="text" name="id_produto" id="id_produto" value="<?php echo $id_produto?>">
                             <!-- Pegando id do usuário -->
-                            <input class="form-input" type="text" name="id_usuario" id="id_usuario" value="<?php echo $id_usuario?>" disabled>
                             <div>
-                            <input class="form-input" type="text" name="valor" id="valor" value="<?php echo $valor_produto?>" disabled>
+                            <input class="form-input" type="text" name="valor" id="valor" value="<?php echo $valor_produto?>">
                             <div>
                                 <label for="qauntidade">Quantidade</label>
                                 <input class="form-input" type="number" name="quantidade" id="quantidade">
